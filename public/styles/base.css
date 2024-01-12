@@ -1,0 +1,70 @@
+/* color palette from <https://github.com/vuejs/theme> */
+/* Outfit Font */
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@500;700&display=swap");
+:root {
+  --light-blue: #31c3bd;
+  --light-blue-hover: #65e9e4;
+  --light-yellow: #f2b137;
+  --light-yellow-hover: #ffc860;
+
+  --dark-navy: #1a2a33;
+  --semi-dark-navy: #1f3641;
+  --silver: #a8bfc9;
+  --silver-hover: #dbe8ed;
+}
+
+/* semantic color variables for this project */
+:root {
+  --color-background: var(--dark-navy);
+  --color-text: var(--silver);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  font-weight: normal;
+}
+
+/* Heading L */
+h1 {
+  font-weight: 700;
+  font-size: 2.5rem;
+  letter-spacing: 2.5px;
+}
+/* Heading M */
+h2 {
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: 1.5px;
+}
+/* Heading S */
+h3 {
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: 1.25px;
+}
+/* Heading XS */
+h4 {
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 1px;
+}
+
+body {
+  min-height: 100vh;
+  color: var(--color-text);
+  background: var(--color-background);
+  transition: color 0.5s, background-color 0.5s;
+  line-height: 1.6;
+  font-family: "Outfit", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
+  font-size: 0.875rem;
+  letter-spacing: 0.875px;
+  font-weight: 500;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
