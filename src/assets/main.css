@@ -15,4 +15,8 @@
   h4 {
     @apply text-[1rem] font-bold tracking-[1px];
   }
+  p, span{
+    @apply text-[0.875rem] font-medium tracking-[0.875px];
+
+  }
 }

@@ -1,12 +1,9 @@
 <script setup>
+import NewGameMenu from './components/NewGameMenu.vue';
 </script>
 
 <template>
-  <main>
-    <h1>123</h1>
+  <main class="flex justify-center items-center h-screen">
+    <NewGameMenu />
   </main>
 </template>
-
-<style scoped>
-
-</style>
