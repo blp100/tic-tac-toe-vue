@@ -7,10 +7,10 @@ import TimesRecordPanel from "@/components/TimesRecordPanel.vue";
 </script>
 <template>
   <div class="m-auto flex flex-col items-center gap-5">
-    <div class="flex w-[460px] items-center justify-between gap-5">
+    <div class="grid grid-cols-3 w-[460px] items-center gap-5">
       <Logo />
       <TurnStatus />
-      <RestartButton />
+      <RestartButton class="justify-self-end" />
     </div>
     <TicTacToeGrid />
     <TimesRecordPanel />
