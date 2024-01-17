@@ -1,14 +1,12 @@
 <script setup>
-import IconO from "./icons/IconO.vue";
-import IconX from "./icons/IconX.vue";
+import IconX from "@/components/icons/IconX.vue";
+import Logo from "@/components/icons/Logo.vue";
+import IconO from "@/components/icons/IconO.vue";
 </script>
 
 <template>
   <div class="m-auto flex flex-col items-center gap-10">
-    <div class="flex gap-2">
-      <IconX class="h-8 w-8 fill-light-blue" />
-      <IconO class="h-8 w-8 fill-light-yellow" />
-    </div>
+    <Logo />
     <div
       class="rounded-[15px] bg-semi-dark-navy p-6 shadow-[0px_-8px_0px_0px_#10212A_inset]"
     >
