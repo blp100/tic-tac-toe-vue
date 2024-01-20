@@ -1,15 +1,8 @@
-<script>
+<script setup>
 import IconO from "./icons/IconO.vue";
 import IconX from "./icons/IconX.vue";
 
-export default {
-  data() {
-    return {
-      isOpen: true,
-    };
-  },
-  components: { IconO, IconX },
-};
+const { isOpen } = defineExpose(["isOpen"]);
 </script>
 
 <template>
@@ -27,7 +20,7 @@ export default {
           <IconX class="hidden fill-light-blue" />
           <h1 class="text-light-yellow">TAKES THE ROUND</h1>
         </div>
-        <div class="flex gap-4 mt-6">
+        <div class="mt-6 flex gap-4">
           <button
             class="mx-auto w-[76px] rounded-[10px] bg-silver pb-[17px] pt-[15px] shadow-[0px_-4px_0px_0px_#6B8997_inset]"
           >
