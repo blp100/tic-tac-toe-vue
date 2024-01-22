@@ -2,7 +2,10 @@
 import IconO from "./icons/IconO.vue";
 import IconX from "./icons/IconX.vue";
 
-const { isOpen } = defineExpose(["isOpen"]);
+const { isOpen } = defineProps({
+  isOpen: Boolean,
+  winner: String,
+});
 </script>
 
 <template>
@@ -16,9 +19,14 @@ const { isOpen } = defineExpose(["isOpen"]);
       >
         <h4 class="text-silver">OH NO, YOU LOST…</h4>
         <div class="mt-4 flex gap-6">
-          <IconO class="fill-light-yellow" />
-          <IconX class="hidden fill-light-blue" />
-          <h1 class="text-light-yellow">TAKES THE ROUND</h1>
+          <IconO v-show="winner === 'O'" class="fill-light-yellow" />
+          <IconX v-show="winner === 'X'" class="fill-light-blue" />
+          <h1 v-show="winner === 'O'" class="text-light-yellow">
+            TAKES THE ROUND
+          </h1>
+          <h1 v-show="winner === 'X'" class="text-light-blue">
+            TAKES THE ROUND
+          </h1>
         </div>
         <div class="mt-6 flex gap-4">
           <button
