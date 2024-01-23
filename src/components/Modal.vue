@@ -27,6 +27,8 @@ const { isOpen } = defineProps({
           <h1 v-show="winner === 'X'" class="text-light-blue">
             TAKES THE ROUND
           </h1>
+
+          <!-- Try change v-show to v-if & v-else -->
         </div>
         <div class="mt-6 flex gap-4">
           <button

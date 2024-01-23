@@ -12,12 +12,42 @@ const currentPlayer = ref("X");
 const isGameOvered = ref(false);
 
 const checkWinner = () => {
+  // Check rows
+  for (let i = 0; i < 3; i++) {
+    if (
+      gridValues.value[i * 3] !== "" &&
+      gridValues.value[i * 3] === gridValues.value[i * 3 + 1] &&
+      gridValues.value[i * 3] === gridValues.value[i * 3 + 2]
+    ) {
+      announceWinner(gridValues.value[i * 3]);
+    }
+  }
+
+  // Check columns
+  for (let i = 0; i < 3; i++) {
+    if (
+      gridValues.value[i] !== "" &&
+      gridValues.value[i] === gridValues.value[i + 3] &&
+      gridValues.value[i] === gridValues.value[i + 6]
+    ) {
+      announceWinner(gridValues.value[i]);
+    }
+  }
+
+  //Check diagonals
   if (
-    gridValues.value[0] === gridValues.value[1] &&
-    gridValues.value[1] === gridValues.value[2] &&
-    gridValues.value[0] !== ""
+    gridValues.value[0] !== "" &&
+    gridValues.value[0] === gridValues.value[4] &&
+    gridValues.value[0] === gridValues.value[8]
   ) {
     announceWinner(gridValues.value[0]);
+  }
+  if (
+    gridValues.value[2] !== "" &&
+    gridValues.value[2] === gridValues.value[4] &&
+    gridValues.value[2] === gridValues.value[6]
+  ) {
+    announceWinner(gridValues.value[2]);
   }
 };
 
