@@ -3,7 +3,8 @@ import { ref } from "vue";
 import TicTacToeButton from "./TicTacToeButton.vue";
 
 const emit = defineEmits({
-  winnerAnnounced: Function,
+  onWinnerAnnounced: Function,
+  onCurrentPlayer: Function,
 });
 
 // Initial values for each button
@@ -53,20 +54,22 @@ const checkWinner = () => {
 
 const announceWinner = (winner) => {
   // Emit a custom event to notify the parent component about the winner
-  emit("winnerAnnounced", winner);
+  emit("onWinnerAnnounced", winner);
   // Disable the board when a winner is announced
   isGameOvered.value = true;
 };
 
+const emitCurrentPlayer = () => {
+  emit("onCurrentPlayer", currentPlayer.value);
+};
+
 // Handle the Tic Tac Toe button click in the parent component
 const handleButtonClick = (index) => {
-  //BUTTON CLICK DIDN'T WORK!!!
-  // Set 'X' for the clicked button as an example
-  console.log(index);
+  
   gridValues.value[index] = currentPlayer.value;
-  currentPlayer.value = currentPlayer.value === "X" ? "O" : "X";
-
   checkWinner();
+  currentPlayer.value = currentPlayer.value === "X" ? "O" : "X";
+  emitCurrentPlayer();
 };
 </script>
 

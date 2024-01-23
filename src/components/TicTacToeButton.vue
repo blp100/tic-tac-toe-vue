@@ -18,7 +18,6 @@ const handleClicked = () => {
     emit("buttonClick");
   }
 };
-console.log(value);
 </script>
 <template>
   <button
