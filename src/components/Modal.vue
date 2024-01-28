@@ -1,10 +1,23 @@
 <script setup>
 import IconO from "./icons/IconO.vue";
 import IconX from "./icons/IconX.vue";
+import { ref, watch, onMounted } from "vue";
 
-const { isOpen } = defineProps({
+const { isOpen, winner, playerRepresentation, gameMode } = defineProps({
   isOpen: Boolean,
   winner: String,
+  playerRepresentation: String,
+  gameMode: String,
+});
+
+const whoIsWinner =
+  gameMode === "vsComputer"
+    ? winner === playerRepresentation
+      ? "YOU WON!"
+      : "OH NO, YOU LOST…"
+    : "";
+onMounted(() => {
+  console.log(isOpen, winner, playerRepresentation, gameMode);
 });
 </script>
 
@@ -17,7 +30,7 @@ const { isOpen } = defineProps({
       <div
         class="mx-auto flex w-screen flex-col items-center bg-semi-dark-navy py-[45px]"
       >
-        <h4 class="text-silver">OH NO, YOU LOST…</h4>
+        <h4 class="text-silver">{{ whoIsWinner }}</h4>
         <div class="mt-4 flex gap-6">
           <IconO v-show="winner === 'O'" class="fill-light-yellow" />
           <IconX v-show="winner === 'X'" class="fill-light-blue" />

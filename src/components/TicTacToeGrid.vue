@@ -12,7 +12,12 @@ const gridValues = ref(Array(9).fill(""));
 const currentPlayer = ref("X");
 const isGameOvered = ref(false);
 
+console.log(currentPlayer.value);
+
 const checkWinner = () => {
+  if (gridValues.value.every((value) => value !== "")) {
+    announceWinner("tie");
+  }
   // Check rows
   for (let i = 0; i < 3; i++) {
     if (
@@ -65,7 +70,6 @@ const emitCurrentPlayer = () => {
 
 // Handle the Tic Tac Toe button click in the parent component
 const handleButtonClick = (index) => {
-  
   gridValues.value[index] = currentPlayer.value;
   checkWinner();
   currentPlayer.value = currentPlayer.value === "X" ? "O" : "X";
@@ -80,6 +84,7 @@ const handleButtonClick = (index) => {
       :key="index"
       :value="value"
       :disabled="isGameOvered || value !== ''"
+      :currentPlayer="currentPlayer"
       @buttonClick="handleButtonClick(index)"
     />
   </div>
