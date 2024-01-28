@@ -14,8 +14,12 @@ const whoIsWinner =
   gameMode === "vsComputer"
     ? winner === playerRepresentation
       ? "YOU WON!"
-      : "OH NO, YOU LOST…"
-    : "";
+      : winner === "tie"
+        ? "ROUND TIED"
+        : "OH NO, YOU LOST…"
+    : winner === "X"
+      ? "PLAYER 1 WINS!"
+      : "PLAYER 2 WINS!";
 onMounted(() => {
   console.log(isOpen, winner, playerRepresentation, gameMode);
 });
