@@ -6,6 +6,16 @@ import TicTacToeGrid from "@/components/TicTacToeGrid.vue";
 import TimesRecordPanel from "@/components/TimesRecordPanel.vue";
 import { ref } from "vue";
 
+const { gameMode, playerOneSymbol, gameStatus } = defineProps({
+  gameMode: String,
+  playerOneSymbol: String,
+  gameStatus: {
+    xWins: Number,
+    oWins: Number,
+    ties: Number,
+  },
+});
+
 const emit = defineEmits({
   winnerPassed: Function,
 });
@@ -19,7 +29,6 @@ const handleWinnerAnnounced = (data) => {
 const handleCurrentPlayer = (player) => {
   currentPlayer.value = player;
 };
-
 </script>
 <template>
   <div class="m-auto flex flex-col items-center gap-5">
@@ -32,6 +41,10 @@ const handleCurrentPlayer = (player) => {
       @onWinnerAnnounced="handleWinnerAnnounced"
       @onCurrentPlayer="handleCurrentPlayer"
     />
-    <TimesRecordPanel />
+    <TimesRecordPanel
+      :gameMode="gameMode"
+      :gameStatus="gameStatus"
+      :playerOneSymbol="playerOneSymbol"
+    />
   </div>
 </template>

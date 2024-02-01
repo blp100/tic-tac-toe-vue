@@ -24,7 +24,7 @@ const handleClicked = () => {
     :disabled="disabled"
     @click="handleClicked"
   >
-    <!-- TODO: Add animation when display markers -->
+    <!-- Add animation when display markers, Group-disabled didn't work -->
     <IconO v-show="value === 'O'" class="mx-auto fill-light-yellow opacity-100" />
     <IconX v-show="value === 'X'" class="mx-auto fill-light-blue opacity-100" />
     <IconOOutline
