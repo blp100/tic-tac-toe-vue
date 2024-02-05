@@ -1,22 +1,44 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted, watchEffect, computed, watch } from "vue";
 import TicTacToeButton from "./TicTacToeButton.vue";
+
+const props = defineProps({
+  shouldRestart: Boolean,
+});
 
 const emit = defineEmits({
   onWinnerAnnounced: Function,
   onCurrentPlayer: Function,
+  "update:shouldRestart": Function,
 });
 
 // Initial values for each button
 const gridValues = ref(Array(9).fill(""));
 const currentPlayer = ref("X");
 const isGameOvered = ref(false);
+const couldRestart = computed(() => shouldRestart);
+console.log(couldRestart);
 
-console.log(currentPlayer.value);
+watch(
+  () => props.shouldRestart,
+  (newValue) => {
+    console.log("Watch triggered. shouldRestart:", newValue);
+    if (newValue) {
+      restart();
+      // Reset shouldRestart to false
+      emit("update:shouldRestart", false);
+    }
+  },
+);
+
+const restart = () => {
+  gridValues.value = Array(9).fill("");
+  currentPlayer.value = "X";
+};
 
 const checkWinner = () => {
   // Check tie
-  if (gridValues.value.every(value => value !== '')) {
+  if (gridValues.value.every((value) => value !== "")) {
     announceWinner("tie");
   }
   // Check rows
@@ -71,7 +93,6 @@ const emitCurrentPlayer = () => {
 
 // Handle the Tic Tac Toe button click in the parent component
 const handleButtonClick = (index) => {
-
   gridValues.value[index] = currentPlayer.value;
   checkWinner();
   currentPlayer.value = currentPlayer.value === "X" ? "O" : "X";

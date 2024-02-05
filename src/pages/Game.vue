@@ -21,6 +21,7 @@ const emit = defineEmits({
 });
 
 const currentPlayer = ref("X");
+const shouldRestart = ref(false);
 
 const handleWinnerAnnounced = (data) => {
   emit("winnerPassed", data);
@@ -29,15 +30,24 @@ const handleWinnerAnnounced = (data) => {
 const handleCurrentPlayer = (player) => {
   currentPlayer.value = player;
 };
+
+const handleGameRestart = () => {
+  shouldRestart.value = true;
+  currentPlayer.value = "X";
+};
 </script>
 <template>
   <div class="m-auto flex flex-col items-center gap-5">
     <div class="grid w-[460px] grid-cols-3 items-center gap-5">
       <Logo />
       <TurnStatus :currentPlayer="currentPlayer" />
-      <RestartButton class="justify-self-end" />
+      <RestartButton
+        @gameRestart="handleGameRestart"
+        class="justify-self-end"
+      />
     </div>
     <TicTacToeGrid
+      v-model:shouldRestart="shouldRestart"
       @onWinnerAnnounced="handleWinnerAnnounced"
       @onCurrentPlayer="handleCurrentPlayer"
     />
