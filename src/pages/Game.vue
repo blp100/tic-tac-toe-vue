@@ -4,39 +4,49 @@ import RestartButton from "@/components/RestartButton.vue";
 import Logo from "@/components/icons/Logo.vue";
 import TicTacToeGrid from "@/components/TicTacToeGrid.vue";
 import TimesRecordPanel from "@/components/TimesRecordPanel.vue";
+import GameOutcomeModal from "@/components/GameOutcomeModal.vue";
 import { ref } from "vue";
 
-const { gameMode, playerOneSymbol, gameStatus } = defineProps({
+const { gameMode, playerOneSymbol } = defineProps({
   gameMode: String,
   playerOneSymbol: String,
-  gameStatus: {
-    xWins: Number,
-    oWins: Number,
-    ties: Number,
-  },
 });
 
-const emit = defineEmits({
-  winnerPassed: Function,
-  restartPassed: Function,
-});
-
+const isOpen = ref(false);
+const winner = ref("");
 const currentPlayer = ref("X");
 const shouldRestart = ref(false);
+const gameStatus = ref({
+  xWins: 0,
+  oWins: 0,
+  ties: 0,
+});
 
-const handleWinnerAnnounced = (winner) => {
-  emit("winnerPassed", winner);
-};
 
 const handleCurrentPlayer = (player) => {
   currentPlayer.value = player;
 };
 
+const handleWinnerAnnounced = (data) => {
+  // Set the winner data for the modal
+  winner.value = data;
+  isOpen.value = true;
+
+  if (data === "X") {
+    gameStatus.value.xWins += 1;
+  } else if (data === "O") {
+    gameStatus.value.oWins += 1;
+  } else {
+    gameStatus.value.ties += 1;
+  }
+};
+
 const handleGameRestart = () => {
   shouldRestart.value = true;
   currentPlayer.value = "X";
-  emit("restartPassed", shouldRestart);
+  isOpen.value = true;
 };
+
 </script>
 <template>
   <div class="m-auto flex flex-col items-center gap-5">
@@ -59,4 +69,12 @@ const handleGameRestart = () => {
       :playerOneSymbol="playerOneSymbol"
     />
   </div>
+  <GameOutcomeModal
+    v-if="isOpen"
+    :isOpen="isOpen"
+    :winner="winner"
+    :playerRepresentation="playerOneSymbol"
+    :gameMode="gameMode"
+    :gemeRestart="shouldRestart"
+  />
 </template>

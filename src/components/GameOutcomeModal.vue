@@ -1,14 +1,19 @@
 <script setup>
+import { toRefs } from "vue";
 import IconO from "./icons/IconO.vue";
 import IconX from "./icons/IconX.vue";
 
-const { isOpen, winner, playerRepresentation, gameMode } = defineProps({
+const props = defineProps({
   isOpen: Boolean,
   winner: String,
   playerRepresentation: String,
   gameMode: String,
   gemeRestart: Boolean,
 });
+
+const { isOpen, winner, playerRepresentation, gameMode, gemeRestart } = props;
+
+console.log(gameMode);
 
 const msg = {
   tie: "ROUND TIED",
@@ -27,17 +32,30 @@ const title = {
   },
 };
 
-const whoIsWinner =
-  gameMode === "vsComputer"
-    ? winner === playerRepresentation
-      ? "win"
-      : "lose"
-    : winner === playerRepresentation
-      ? "p1win"
-      : "p1lose";
+const buttonTxt = {
+  confirm: {
+    restart: "YES, RESTART",
+    continue: "NEXT ROUND",
+  },
+  cancel: {
+    restart: "NO, CANCEL",
+    continue: "QUIT",
+  },
+};
 
-const systemMsg = winner === "" ? msg["restart"] : msg[winner];
-const systemTitle = title[gameMode][whoIsWinner];
+const isComputerMode = gameMode === "vsComputer";
+const isPlayerWinner = winner === playerRepresentation;
+const whoIsWinner = isComputerMode
+  ? isPlayerWinner
+    ? "win"
+    : "lose"
+  : isPlayerWinner
+    ? "p1win"
+    : "p1lose";
+
+const systemMsg = winner === "" ? msg.restart : msg[winner];
+const systemTitle = winner !== "" ? title[gameMode][whoIsWinner] : "";
+console.log(gemeRestart ? buttonTxt.cancel.restart : buttonTxt.cancel.continue);
 </script>
 
 <template>
@@ -66,14 +84,26 @@ const systemTitle = title[gameMode][whoIsWinner];
         </div>
         <div class="mt-6 flex gap-4">
           <button
-            class="mx-auto w-[76px] rounded-[10px] bg-silver pb-[17px] pt-[15px] shadow-[0px_-4px_0px_0px_#6B8997_inset]"
+            class="mx-auto rounded-[10px] bg-silver pb-[17px] pl-[17px] pr-4 pt-[15px] shadow-[0px_-4px_0px_0px_#6B8997_inset]"
           >
-            <h4 class="text-center text-dark-navy">QUIT</h4>
+            <h4 class="text-center text-dark-navy">
+              {{
+                gemeRestart
+                  ? buttonTxt.cancel.restart
+                  : buttonTxt.cancel.continue
+              }}
+            </h4>
           </button>
           <button
-            class="mx-auto w-[146px] rounded-[10px] bg-light-yellow pb-[17px] pt-[15px] shadow-[0px_-4px_0px_0px_#CC8B13_inset]"
+            class="mx-auto rounded-[10px] bg-light-yellow pb-[17px] pl-[17px] pr-4 pt-[15px] shadow-[0px_-4px_0px_0px_#CC8B13_inset]"
           >
-            <h4 class="text-center text-dark-navy">NEXT ROUND</h4>
+            <h4 class="text-center text-dark-navy">
+              {{
+                gemeRestart
+                  ? buttonTxt.confirm.restart
+                  : buttonTxt.confirm.continue
+              }}
+            </h4>
           </button>
         </div>
       </div>
