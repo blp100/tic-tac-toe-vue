@@ -1,28 +1,43 @@
 <script setup>
 import IconO from "./icons/IconO.vue";
 import IconX from "./icons/IconX.vue";
-import { ref, watch, onMounted } from "vue";
 
 const { isOpen, winner, playerRepresentation, gameMode } = defineProps({
   isOpen: Boolean,
   winner: String,
   playerRepresentation: String,
   gameMode: String,
+  gemeRestart: Boolean,
 });
+
+const msg = {
+  tie: "ROUND TIED",
+  X: "TAKES THE ROUND",
+  O: "TAKES THE ROUND",
+  restart: "RESTART GAME?",
+};
+const title = {
+  vsComputer: {
+    win: "YOU WON!",
+    lose: "OH NO, YOU LOST…",
+  },
+  vsPlayer: {
+    p1win: "PLAYER 1 WINS!",
+    p1lose: "PLAYER 2 WINS!",
+  },
+};
 
 const whoIsWinner =
   gameMode === "vsComputer"
     ? winner === playerRepresentation
-      ? "YOU WON!"
-      : winner === "tie"
-        ? "ROUND TIED"
-        : "OH NO, YOU LOST…"
-    : winner === "X"
-      ? "PLAYER 1 WINS!"
-      : "PLAYER 2 WINS!";
-onMounted(() => {
-  console.log(isOpen, winner, playerRepresentation, gameMode);
-});
+      ? "win"
+      : "lose"
+    : winner === playerRepresentation
+      ? "p1win"
+      : "p1lose";
+
+const systemMsg = winner === "" ? msg["restart"] : msg[winner];
+const systemTitle = title[gameMode][whoIsWinner];
 </script>
 
 <template>
@@ -34,17 +49,19 @@ onMounted(() => {
       <div
         class="mx-auto flex w-screen flex-col items-center bg-semi-dark-navy py-[45px]"
       >
-        <h4 class="text-silver">{{ whoIsWinner }}</h4>
+        <h4 class="text-silver">{{ systemTitle }}</h4>
         <div class="mt-4 flex gap-6">
           <IconO v-show="winner === 'O'" class="fill-light-yellow" />
           <IconX v-show="winner === 'X'" class="fill-light-blue" />
-          <h1 v-show="winner === 'O'" class="text-light-yellow">
-            TAKES THE ROUND
+          <h1
+            :class="{
+              'text-light-yellow': winner === 'O',
+              'text-light-blue': winner === 'X',
+              'text-silver': winner !== 'O' && winner !== 'X',
+            }"
+          >
+            {{ systemMsg }}
           </h1>
-          <h1 v-show="winner === 'X'" class="text-light-blue">
-            TAKES THE ROUND
-          </h1>
-
           <!-- Try change v-show to v-if & v-else -->
         </div>
         <div class="mt-6 flex gap-4">

@@ -10,6 +10,7 @@ const winner = ref("");
 const currentPage = ref("GameMenu");
 const playerRepresentation = ref("");
 const gameMode = ref("");
+const gemeRestart = ref(false);
 const gameStatus = ref({
   xWins: 0,
   oWins: 0,
@@ -29,7 +30,9 @@ const handleStartGame = (selectedPlayer, mode) => {
 
 const handleWinnerPassed = (data) => {
   // Set the winner data for the modal
+  console.log("data : " + data);
   winner.value = data;
+  console.log("winner : " + winner);
   isOpen.value = true;
   if (data === "X") {
     gameStatus.value.xWins += 1;
@@ -48,6 +51,11 @@ const handleWinnerPassed = (data) => {
     playerRepresentation.value,
   );
 };
+
+const handleRestartPassed = (data) => {
+  gemeRestart.value = data;
+  isOpen.value = true;
+};
 </script>
 
 <template>
@@ -62,6 +70,7 @@ const handleWinnerPassed = (data) => {
       :playerOneSymbol="playerRepresentation"
       :gameStatus="gameStatus"
       @winnerPassed="handleWinnerPassed"
+      @restartPassed="handleRestartPassed"
     />
     <Modal
       v-if="isOpen"
@@ -69,6 +78,7 @@ const handleWinnerPassed = (data) => {
       :winner="winner"
       :playerRepresentation="playerRepresentation"
       :gameMode="gameMode"
+      :gemeRestart="gemeRestart"
     />
   </main>
 </template>

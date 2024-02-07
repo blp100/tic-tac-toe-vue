@@ -18,13 +18,14 @@ const { gameMode, playerOneSymbol, gameStatus } = defineProps({
 
 const emit = defineEmits({
   winnerPassed: Function,
+  restartPassed: Function,
 });
 
 const currentPlayer = ref("X");
 const shouldRestart = ref(false);
 
-const handleWinnerAnnounced = (data) => {
-  emit("winnerPassed", data);
+const handleWinnerAnnounced = (winner) => {
+  emit("winnerPassed", winner);
 };
 
 const handleCurrentPlayer = (player) => {
@@ -34,6 +35,7 @@ const handleCurrentPlayer = (player) => {
 const handleGameRestart = () => {
   shouldRestart.value = true;
   currentPlayer.value = "X";
+  emit("restartPassed", shouldRestart);
 };
 </script>
 <template>

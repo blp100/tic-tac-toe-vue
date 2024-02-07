@@ -16,8 +16,6 @@ const emit = defineEmits({
 const gridValues = ref(Array(9).fill(""));
 const currentPlayer = ref("X");
 const isGameOvered = ref(false);
-const couldRestart = computed(() => shouldRestart);
-console.log(couldRestart);
 
 watch(
   () => props.shouldRestart,
@@ -39,7 +37,7 @@ const restart = () => {
 const checkWinner = () => {
   // Check tie
   if (gridValues.value.every((value) => value !== "")) {
-    announceWinner("tie");
+    announceGameResult("tie");
   }
   // Check rows
   for (let i = 0; i < 3; i++) {
@@ -48,7 +46,7 @@ const checkWinner = () => {
       gridValues.value[i * 3] === gridValues.value[i * 3 + 1] &&
       gridValues.value[i * 3] === gridValues.value[i * 3 + 2]
     ) {
-      announceWinner(gridValues.value[i * 3]);
+      announceGameResult(gridValues.value[i * 3]);
     }
   }
 
@@ -59,7 +57,7 @@ const checkWinner = () => {
       gridValues.value[i] === gridValues.value[i + 3] &&
       gridValues.value[i] === gridValues.value[i + 6]
     ) {
-      announceWinner(gridValues.value[i]);
+      announceGameResult(gridValues.value[i]);
     }
   }
 
@@ -69,18 +67,18 @@ const checkWinner = () => {
     gridValues.value[0] === gridValues.value[4] &&
     gridValues.value[0] === gridValues.value[8]
   ) {
-    announceWinner(gridValues.value[0]);
+    announceGameResult(gridValues.value[0]);
   }
   if (
     gridValues.value[2] !== "" &&
     gridValues.value[2] === gridValues.value[4] &&
     gridValues.value[2] === gridValues.value[6]
   ) {
-    announceWinner(gridValues.value[2]);
+    announceGameResult(gridValues.value[2]);
   }
 };
 
-const announceWinner = (winner) => {
+const announceGameResult = (winner) => {
   // Emit a custom event to notify the parent component about the winner
   emit("onWinnerAnnounced", winner);
   // Disable the board when a winner is announced
