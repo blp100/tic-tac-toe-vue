@@ -4,7 +4,10 @@ import TicTacToeButton from "./TicTacToeButton.vue";
 
 const props = defineProps({
   gameRestart: Boolean,
+  gameMode: String,
+  playerOneSymbol: String,
 });
+const { gameRestart, gameMode, playerOneSymbol } = props;
 
 const emit = defineEmits({
   onWinnerAnnounced: Function,
@@ -29,10 +32,19 @@ watch(
   },
 );
 
+onMounted(() => {
+  if (gameMode === "vsComputer" && playerOneSymbol === "O") {
+    generateComputerMove();
+  }
+});
+
 const reset = () => {
   gridValues.value = Array(9).fill("");
   currentPlayer.value = "X";
   isGameOvered.value = false;
+  if (gameMode === "vsComputer" && playerOneSymbol === "O") {
+    generateComputerMove();
+  }
 };
 
 const checkWinner = () => {
@@ -95,7 +107,22 @@ const handleButtonClick = (index) => {
   gridValues.value[index] = currentPlayer.value;
   checkWinner();
   currentPlayer.value = currentPlayer.value === "X" ? "O" : "X";
+  if (gameMode === "vsComputer" && !isGameOvered.value) {
+    generateComputerMove();
+  }
   emitCurrentPlayer();
+};
+
+// Computer Move. at now, It's set as random step
+const generateComputerMove = () => {
+  //Random Step
+  let randomIndex = Math.floor(Math.random() * 9);
+  while (gridValues.value[randomIndex] !== "") {
+    randomIndex = Math.floor(Math.random() * 9);
+  }
+  gridValues.value[randomIndex] = currentPlayer.value;
+  checkWinner();
+  currentPlayer.value = currentPlayer.value === "X" ? "O" : "X";
 };
 </script>
 

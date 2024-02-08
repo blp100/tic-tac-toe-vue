@@ -86,6 +86,8 @@ watch(isGameReset, (newValue) => {
     </div>
     <TicTacToeGrid
       v-model:gameRestart="gameRestart"
+      :gameMode="gameMode"
+      :playerOneSymbol="playerOneSymbol"
       @onWinnerAnnounced="handleWinnerAnnounced"
       @onCurrentPlayer="handleCurrentPlayer"
     />
