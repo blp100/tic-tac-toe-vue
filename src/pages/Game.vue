@@ -5,23 +5,29 @@ import Logo from "@/components/icons/Logo.vue";
 import TicTacToeGrid from "@/components/TicTacToeGrid.vue";
 import TimesRecordPanel from "@/components/TimesRecordPanel.vue";
 import GameOutcomeModal from "@/components/GameOutcomeModal.vue";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 
-const { gameMode, playerOneSymbol } = defineProps({
+const props = defineProps({
   gameMode: String,
   playerOneSymbol: String,
+});
+const { gameMode, playerOneSymbol } = props;
+
+const emit = defineEmits({
+  gameReset: Function,
 });
 
 const isOpen = ref(false);
 const winner = ref("");
 const currentPlayer = ref("X");
-const shouldRestart = ref(false);
+const checkRestart = ref(false);
+const gameRestart = ref(false);
 const gameStatus = ref({
   xWins: 0,
   oWins: 0,
   ties: 0,
 });
-
+const isGameReset = ref(false);
 
 const handleCurrentPlayer = (player) => {
   currentPlayer.value = player;
@@ -42,11 +48,31 @@ const handleWinnerAnnounced = (data) => {
 };
 
 const handleGameRestart = () => {
-  shouldRestart.value = true;
+  checkRestart.value = true;
   currentPlayer.value = "X";
   isOpen.value = true;
 };
 
+const handleNextRound = () => {
+  currentPlayer.value = "X";
+  gameRestart.value = true;
+};
+
+watch(gameRestart, (newValue) => {
+  console.log(newValue);
+});
+watch(isGameReset, (newValue) => {
+  console.log("isGameReset : ", newValue);
+  if (newValue) {
+    gameRestart.value = true;
+    gameStatus.value = {
+      xWins: 0,
+      oWins: 0,
+      ties: 0,
+    };
+    emit("gameReset");
+  }
+});
 </script>
 <template>
   <div class="m-auto flex flex-col items-center gap-5">
@@ -59,7 +85,7 @@ const handleGameRestart = () => {
       />
     </div>
     <TicTacToeGrid
-      v-model:shouldRestart="shouldRestart"
+      v-model:gameRestart="gameRestart"
       @onWinnerAnnounced="handleWinnerAnnounced"
       @onCurrentPlayer="handleCurrentPlayer"
     />
@@ -71,10 +97,13 @@ const handleGameRestart = () => {
   </div>
   <GameOutcomeModal
     v-if="isOpen"
-    :isOpen="isOpen"
+    v-model:isOpen="isOpen"
     :winner="winner"
     :playerRepresentation="playerOneSymbol"
     :gameMode="gameMode"
-    :gemeRestart="shouldRestart"
+    v-model:checkRestart="checkRestart"
+    v-model:gameRestart="gameRestart"
+    v-model:isGameReset="isGameReset"
+    @nextRound="handleNextRound"
   />
 </template>

@@ -15,8 +15,10 @@ const handleStartGame = (selectedPlayer, mode) => {
   gameMode.value = mode;
   // Pass the selected player representation to the TicTacToeGame component
   playerRepresentation.value = selectedPlayer;
+};
 
-  console.log(gameMode.value, playerRepresentation.value);
+const handleGameReset = () => {
+  currentPage.value = "GameMenu";
 };
 </script>
 
@@ -28,8 +30,9 @@ const handleStartGame = (selectedPlayer, mode) => {
     />
     <Game
       v-else
-      :gameMode="gameMode"
+      v-model:gameMode="gameMode"
       :playerOneSymbol="playerRepresentation"
+      @gameReset="handleGameReset"
     />
   </main>
 </template>

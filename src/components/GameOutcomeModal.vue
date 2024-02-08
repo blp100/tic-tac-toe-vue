@@ -1,5 +1,5 @@
 <script setup>
-import { toRefs } from "vue";
+import { toRefs, watch } from "vue";
 import IconO from "./icons/IconO.vue";
 import IconX from "./icons/IconX.vue";
 
@@ -8,12 +8,26 @@ const props = defineProps({
   winner: String,
   playerRepresentation: String,
   gameMode: String,
-  gemeRestart: Boolean,
+  checkRestart: Boolean,
+  isGameReset: Boolean,
 });
 
-const { isOpen, winner, playerRepresentation, gameMode, gemeRestart } = props;
+const {
+  isOpen,
+  winner,
+  playerRepresentation,
+  gameMode,
+  checkRestart,
+  isGameReset,
+} = props;
 
-console.log(gameMode);
+const emit = defineEmits({
+  "update:isOpen": Function,
+  "update:checkRestart": Function,
+  "update:gameRestart": Function,
+  "update:isGameReset": Function,
+  nextRound: Function,
+});
 
 const msg = {
   tie: "ROUND TIED",
@@ -55,7 +69,30 @@ const whoIsWinner = isComputerMode
 
 const systemMsg = winner === "" ? msg.restart : msg[winner];
 const systemTitle = winner !== "" ? title[gameMode][whoIsWinner] : "";
-console.log(gemeRestart ? buttonTxt.cancel.restart : buttonTxt.cancel.continue);
+
+const handleCancelBtn = (event) => {
+  // Cancel Restart
+  if (checkRestart) {
+    emit("update:isOpen", false);
+    emit("update:checkRestart", false);
+    // Quit game and clear game status
+  } else {
+    emit("update:isOpen", false);
+    emit("update:isGameReset", true);
+  }
+};
+const handleConfirmBtn = (event) => {
+  // Restart the game, and keep game status
+  if (checkRestart) {
+    emit("update:isOpen", false);
+    emit("update:checkRestart", false);
+    emit("update:gameRestart", true);
+    // Next round, update game status
+  } else {
+    emit("update:isOpen", false);
+    emit("nextRound");
+  }
+};
 </script>
 
 <template>
@@ -85,10 +122,11 @@ console.log(gemeRestart ? buttonTxt.cancel.restart : buttonTxt.cancel.continue);
         <div class="mt-6 flex gap-4">
           <button
             class="mx-auto rounded-[10px] bg-silver pb-[17px] pl-[17px] pr-4 pt-[15px] shadow-[0px_-4px_0px_0px_#6B8997_inset]"
+            @click="handleCancelBtn"
           >
             <h4 class="text-center text-dark-navy">
               {{
-                gemeRestart
+                checkRestart
                   ? buttonTxt.cancel.restart
                   : buttonTxt.cancel.continue
               }}
@@ -96,10 +134,11 @@ console.log(gemeRestart ? buttonTxt.cancel.restart : buttonTxt.cancel.continue);
           </button>
           <button
             class="mx-auto rounded-[10px] bg-light-yellow pb-[17px] pl-[17px] pr-4 pt-[15px] shadow-[0px_-4px_0px_0px_#CC8B13_inset]"
+            @click="handleConfirmBtn"
           >
             <h4 class="text-center text-dark-navy">
               {{
-                gemeRestart
+                checkRestart
                   ? buttonTxt.confirm.restart
                   : buttonTxt.confirm.continue
               }}

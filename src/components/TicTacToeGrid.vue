@@ -3,13 +3,13 @@ import { ref, onMounted, watchEffect, computed, watch } from "vue";
 import TicTacToeButton from "./TicTacToeButton.vue";
 
 const props = defineProps({
-  shouldRestart: Boolean,
+  gameRestart: Boolean,
 });
 
 const emit = defineEmits({
   onWinnerAnnounced: Function,
   onCurrentPlayer: Function,
-  "update:shouldRestart": Function,
+  "update:gameRestart": Function,
 });
 
 // Initial values for each button
@@ -18,20 +18,21 @@ const currentPlayer = ref("X");
 const isGameOvered = ref(false);
 
 watch(
-  () => props.shouldRestart,
+  () => props.gameRestart,
   (newValue) => {
-    console.log("Watch triggered. shouldRestart:", newValue);
+    console.log("Watch triggered. gameRestart:", newValue);
     if (newValue) {
-      restart();
-      // Reset shouldRestart to false
-      emit("update:shouldRestart", false);
+      reset();
+      // Reset checkRestart to false
+      emit("update:gameRestart", false);
     }
   },
 );
 
-const restart = () => {
+const reset = () => {
   gridValues.value = Array(9).fill("");
   currentPlayer.value = "X";
+  isGameOvered.value = false;
 };
 
 const checkWinner = () => {
