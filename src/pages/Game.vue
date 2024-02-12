@@ -56,6 +56,7 @@ const handleGameRestart = () => {
 const handleNextRound = () => {
   currentPlayer.value = "X";
   gameRestart.value = true;
+  winner.value = "";
 };
 
 watch(gameRestart, (newValue) => {
