@@ -13,13 +13,13 @@ const emit = defineEmits({
 
 const startGameWithComputer = () => {
   playerRepresentation.value = toggleRepresentation.value;
-  
+
   emit("startGame", playerRepresentation.value, "vsComputer");
 };
 
 const startGameWithPlayer = () => {
   playerRepresentation.value = toggleRepresentation.value;
-  
+
   emit("startGame", playerRepresentation.value, "vsPlayer");
 };
 </script>
@@ -53,7 +53,7 @@ const startGameWithPlayer = () => {
               toggleRepresentation = 'X';
             }
           "
-          class="flex h-[54px] w-[198px] justify-center"
+          class="flex h-[54px] w-[198px] justify-center hover:bg-silver/5 rounded-[10px]"
         >
           <IconX
             class="z-10 m-auto h-8 w-8 duration-500"
@@ -69,7 +69,7 @@ const startGameWithPlayer = () => {
               toggleRepresentation = 'O';
             }
           "
-          class="flex h-[54px] w-[198px] justify-center"
+          class="flex h-[54px] w-[198px] justify-center hover:bg-silver/5 rounded-[10px]"
         >
           <IconO
             class="z-10 m-auto h-8 w-8 duration-500"
@@ -86,13 +86,13 @@ const startGameWithPlayer = () => {
     </div>
     <div class="flex flex-col gap-5">
       <button
-        class="mx-0 w-[460px] rounded-[15px] bg-light-yellow pb-[25px] pt-[17px] shadow-[0px_-8px_0px_0px_#CC8B13_inset]"
+        class="mx-0 w-[460px] rounded-[15px] bg-light-yellow pb-[25px] pt-[17px] shadow-[0px_-8px_0px_0px_#CC8B13_inset] hover:bg-light-yellow-hover"
         @click="startGameWithComputer"
       >
         <h3 class="text-center text-dark-navy">NEW GAME (VS CPU)</h3>
       </button>
       <button
-        class="mx-0 w-[460px] rounded-[15px] bg-light-blue pb-[25px] pt-[17px] shadow-[0px_-8px_0px_0px_#118C87_inset]"
+        class="mx-0 w-[460px] rounded-[15px] bg-light-blue pb-[25px] pt-[17px] shadow-[0px_-8px_0px_0px_#118C87_inset] hover:bg-light-blue-hover"
         @click="startGameWithPlayer"
       >
         <h3 class="text-center text-dark-navy">NEW GAME (VS PLAYER)</h3>

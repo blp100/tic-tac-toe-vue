@@ -121,7 +121,7 @@ const handleConfirmBtn = (event) => {
         </div>
         <div class="mt-6 flex gap-4">
           <button
-            class="mx-auto rounded-[10px] bg-silver pb-[17px] pl-[17px] pr-4 pt-[15px] shadow-[0px_-4px_0px_0px_#6B8997_inset]"
+            class="mx-auto rounded-[10px] bg-silver pb-[17px] pl-[17px] pr-4 pt-[15px] shadow-[0px_-4px_0px_0px_#6B8997_inset] hover:bg-silver-hover"
             @click="handleCancelBtn"
           >
             <h4 class="text-center text-dark-navy">
@@ -133,7 +133,7 @@ const handleConfirmBtn = (event) => {
             </h4>
           </button>
           <button
-            class="mx-auto rounded-[10px] bg-light-yellow pb-[17px] pl-[17px] pr-4 pt-[15px] shadow-[0px_-4px_0px_0px_#CC8B13_inset]"
+            class="mx-auto rounded-[10px] bg-light-yellow pb-[17px] pl-[17px] pr-4 pt-[15px] shadow-[0px_-4px_0px_0px_#CC8B13_inset] hover:bg-light-yellow-hover"
             @click="handleConfirmBtn"
           >
             <h4 class="text-center text-dark-navy">
