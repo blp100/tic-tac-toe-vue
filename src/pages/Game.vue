@@ -76,27 +76,29 @@ watch(isGameReset, (newValue) => {
 });
 </script>
 <template>
-  <div class="m-auto flex flex-col items-center gap-5">
-    <div class="grid w-[460px] grid-cols-3 items-center gap-5">
-      <Logo />
-      <TurnStatus :currentPlayer="currentPlayer" />
-      <RestartButton
-        @gameRestart="handleGameRestart"
-        class="justify-self-end"
+  <div class="mx-auto h-screen max-w-[460px] justify-center p-6 md:flex md:p-0">
+    <div class="mx-auto flex w-full flex-col justify-center gap-5 md:my-auto">
+      <div class="grid w-full grid-cols-3 items-center gap-5">
+        <Logo />
+        <TurnStatus :currentPlayer="currentPlayer" />
+        <RestartButton
+          @gameRestart="handleGameRestart"
+          class="justify-self-end"
+        />
+      </div>
+      <TicTacToeGrid
+        v-model:gameRestart="gameRestart"
+        :gameMode="gameMode"
+        :playerOneSymbol="playerOneSymbol"
+        @onWinnerAnnounced="handleWinnerAnnounced"
+        @onCurrentPlayer="handleCurrentPlayer"
+      />
+      <TimesRecordPanel
+        :gameMode="gameMode"
+        :gameStatus="gameStatus"
+        :playerOneSymbol="playerOneSymbol"
       />
     </div>
-    <TicTacToeGrid
-      v-model:gameRestart="gameRestart"
-      :gameMode="gameMode"
-      :playerOneSymbol="playerOneSymbol"
-      @onWinnerAnnounced="handleWinnerAnnounced"
-      @onCurrentPlayer="handleCurrentPlayer"
-    />
-    <TimesRecordPanel
-      :gameMode="gameMode"
-      :gameStatus="gameStatus"
-      :playerOneSymbol="playerOneSymbol"
-    />
   </div>
   <GameOutcomeModal
     v-if="isOpen"

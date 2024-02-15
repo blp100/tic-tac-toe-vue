@@ -104,11 +104,20 @@ const handleConfirmBtn = (event) => {
       <div
         class="mx-auto flex w-screen flex-col items-center bg-semi-dark-navy py-[45px]"
       >
-        <h4 class="text-silver">{{ systemTitle }}</h4>
-        <div class="mt-4 flex gap-6">
-          <IconO v-show="winner === 'O'" class="fill-light-yellow" />
-          <IconX v-show="winner === 'X'" class="fill-light-blue" />
+        <h4 class="text-body md:text-heading-xs font-medium text-silver">
+          {{ systemTitle }}
+        </h4>
+        <div class="mt-4 flex items-center gap-2 md:gap-6">
+          <IconO
+            v-show="winner === 'O'"
+            class="h-7 w-7 fill-light-yellow md:h-16 md:w-16"
+          />
+          <IconX
+            v-show="winner === 'X'"
+            class="h-7 w-7 fill-light-blue md:h-16 md:w-16"
+          />
           <h1
+            class="text-heading-m md:text-heading-l"
             :class="{
               'text-light-yellow': winner === 'O',
               'text-light-blue': winner === 'X',
@@ -124,7 +133,7 @@ const handleConfirmBtn = (event) => {
             class="mx-auto rounded-[10px] bg-silver pb-[17px] pl-[17px] pr-4 pt-[15px] shadow-[0px_-4px_0px_0px_#6B8997_inset] hover:bg-silver-hover"
             @click="handleCancelBtn"
           >
-            <h4 class="text-center text-dark-navy">
+            <h4 class="text-heading-xs text-center text-dark-navy">
               {{
                 checkRestart
                   ? buttonTxt.cancel.restart
@@ -136,7 +145,7 @@ const handleConfirmBtn = (event) => {
             class="mx-auto rounded-[10px] bg-light-yellow pb-[17px] pl-[17px] pr-4 pt-[15px] shadow-[0px_-4px_0px_0px_#CC8B13_inset] hover:bg-light-yellow-hover"
             @click="handleConfirmBtn"
           >
-            <h4 class="text-center text-dark-navy">
+            <h4 class="text-heading-xs text-center text-dark-navy">
               {{
                 checkRestart
                   ? buttonTxt.confirm.restart

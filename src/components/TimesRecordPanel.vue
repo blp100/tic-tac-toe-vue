@@ -33,16 +33,16 @@ if (gameMode === "vsComputer") {
 <template>
   <div class="flex w-full gap-5 text-center">
     <div class="flex-1 rounded-[15px] bg-light-blue pb-[13px] pt-[11px]">
-      <p>X ({{ xPlayer }})</p>
-      <h2>{{ gameStatus.xWins }}</h2>
+      <p class="md:text-body text-xs tracking-[0.75px]">X ({{ xPlayer }})</p>
+      <h2 class="text-heading-s md:text-heading-m">{{ gameStatus.xWins }}</h2>
     </div>
     <div class="flex-1 rounded-[15px] bg-silver pb-[13px] pt-[11px]">
-      <p>TIES</p>
-      <h2>{{ gameStatus.ties }}</h2>
+      <p class="md:text-body text-xs tracking-[0.75px]">TIES</p>
+      <h2 class="text-heading-s md:text-heading-m">{{ gameStatus.ties }}</h2>
     </div>
     <div class="flex-1 rounded-[15px] bg-light-yellow pb-[13px] pt-[11px]">
-      <p>O ({{ oPlayer }})</p>
-      <h2>{{ gameStatus.oWins }}</h2>
+      <p class="md:text-body text-xs tracking-[0.75px]">O ({{ oPlayer }})</p>
+      <h2 class="text-heading-s md:text-heading-m">{{ gameStatus.oWins }}</h2>
     </div>
   </div>
 </template>

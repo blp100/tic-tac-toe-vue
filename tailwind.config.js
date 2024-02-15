@@ -18,6 +18,43 @@ export default {
         silver: "#a8bfc9",
         "silver-hover": "#dbe8ed",
       },
+      fontSize: {
+        "heading-l": [
+          "2.5rem",
+          {
+            letterSpacing: "2.5px",
+            fontWeight: "700",
+          },
+        ],
+        "heading-m": [
+          "1.5rem",
+          {
+            letterSpacing: "1.5px",
+            fontWeight: "700",
+          },
+        ],
+        "heading-s": [
+          "1.25rem",
+          {
+            letterSpacing: "1.25px",
+            fontWeight: "700",
+          },
+        ],
+        "heading-xs": [
+          "1rem",
+          {
+            letterSpacing: "1px",
+            fontWeight: "700",
+          },
+        ],
+        "body": [
+          "0.875rem",
+          {
+            letterSpacing: "0.875px",
+            fontWeight: "500",
+          },
+        ],
+      },
     },
   },
   plugins: [],

@@ -23,7 +23,9 @@ const handleGameReset = () => {
 </script>
 
 <template>
-  <main class="container mx-auto flex h-screen items-center justify-center">
+  <main
+    class="container h-screen"
+  >
     <NewGameMenu
       v-if="currentPage === 'GameMenu'"
       @startGame="handleStartGame"

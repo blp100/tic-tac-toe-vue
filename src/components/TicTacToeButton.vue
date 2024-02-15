@@ -20,20 +20,26 @@ const handleClicked = () => {
 </script>
 <template>
   <button
-    class="group h-[140px] w-[140px] rounded-[15px] bg-semi-dark-navy shadow-[0px_-8px_0px_0px_#10212A_inset]"
+    class="group rounded-[15px] bg-semi-dark-navy px-7 pb-8 pt-6 shadow-[0px_-8px_0px_0px_#10212A_inset] md:p-[38px]"
     :disabled="disabled"
     @click="handleClicked"
   >
     <!-- Add animation when display markers, Group-disabled didn't work -->
-    <IconO v-show="value === 'O'" class="mx-auto fill-light-yellow opacity-100" />
-    <IconX v-show="value === 'X'" class="mx-auto fill-light-blue opacity-100" />
+    <IconO
+      v-show="value === 'O'"
+      class="mx-auto h-10 w-10 fill-light-yellow opacity-100 md:h-16 md:w-16"
+    />
+    <IconX
+      v-show="value === 'X'"
+      class="mx-auto h-10 w-10 fill-light-blue opacity-100 md:h-16 md:w-16"
+    />
     <IconOOutline
       v-show="currentPlayer === 'O' && !disabled"
-      class="mx-auto opacity-0 transition-opacity duration-300 ease-in group-hover:opacity-100"
+      class="mx-auto h-10 w-10 opacity-0 transition-opacity duration-300 ease-in group-hover:opacity-100 md:h-[66px] md:w-[66px]"
     />
     <IconXOutline
       v-show="currentPlayer === 'X' && !disabled"
-      class="mx-auto opacity-0 transition-opacity duration-300 ease-in group-hover:opacity-100"
+      class="mx-auto h-10 w-10 opacity-0 transition-opacity duration-300 ease-in group-hover:opacity-100 md:h-16 md:w-16"
     />
   </button>
 </template>

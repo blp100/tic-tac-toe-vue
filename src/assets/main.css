@@ -3,20 +3,7 @@
 @tailwind utilities;
 
 @layer base {
-  h1 {
-    @apply text-[2.5rem] font-bold tracking-[2.5px];
-  }
-  h2 {
-    @apply text-[1.5rem] font-bold tracking-[1.5px];
-  }
-  h3 {
-    @apply text-[1.25rem] font-bold tracking-[1.25px];
-  }
-  h4 {
-    @apply text-[1rem] font-bold tracking-[1px];
-  }
   p, span{
     @apply text-[0.875rem] font-medium tracking-[0.875px];
-
   }
 }

@@ -110,7 +110,7 @@ const handleButtonClick = (index) => {
   if (gameMode === "vsComputer" && !isGameOvered.value) {
     generateComputerMove();
   }
-  emitCurrentPlayer();
+  emitCurrentPlayer(); 
 };
 
 // Computer Move. at now, It's set as random step
@@ -127,7 +127,7 @@ const generateComputerMove = () => {
 </script>
 
 <template>
-  <div class="grid grid-cols-3 gap-5">
+  <div class="mt-11 grid grid-cols-3 gap-5 md:mt-0">
     <TicTacToeButton
       v-for="(value, index) in gridValues"
       :key="index"
